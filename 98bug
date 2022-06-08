@@ -1,0 +1,89 @@
+leetcode 98题
+下面标记的两处，一旦有return 就报错，在本地运行是没问题的
+
+语言c++
+
+你自己去提交看下就知道了，代码是没问题的
+
+
+class Solution {
+
+public:
+
+    bool isValidBST(TreeNode* root) {
+
+        vector<int> res;
+
+        auto cur = root;
+
+        long long c = 1e10, e = c - 1;//c表示当前节点值，e上次
+
+        while(cur){
+
+            if(cur->left){
+
+                auto p = cur->left;
+
+                while(p->right && p->right != cur)
+
+                    p = p->right;
+
+                if(p->right){
+
+                    /****/
+
+                    c = cur->val;
+
+                    // if(c <= e) return false;
+
+                    return false;//这个位置一旦有return 就报错
+
+                    e = c;
+
+                    /****/
+
+                    res.push_back(cur->val);
+
+                    p->right = nullptr;
+
+                    cur = cur->right;
+
+                }else{
+
+                    p->right = cur;
+
+                    cur = cur->left;
+
+                }
+
+            }else{
+
+                /***/
+
+                c = cur->val;
+
+                // if(c <= e) return false;
+                return true;//这个位置一旦有return 就报错
+
+                e = c;
+
+                /****/
+
+                res.push_back(cur->val);
+
+                cur = cur->right;
+
+            }
+
+        }
+
+        for(int i = res.size() - 1; i >= 1; i --)
+
+            if(res[i] <= res[i - 1]) return false;
+
+        return true;
+
+    }
+
+};
+
